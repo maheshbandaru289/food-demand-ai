@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import joblib
 import plotly.express as px
-
+import sklearn
 st.set_page_config(page_title="Food Intelligence AI", layout="wide")
 
 # Exact paths from root folder
