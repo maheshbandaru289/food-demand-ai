@@ -7,8 +7,18 @@ import plotly.express as px
 
 st.set_page_config(page_title="Food Intelligence AI", layout="wide")
 
-df = pd.read_csv(os.path.join(os.path.dirname(__file__), "..", "data", "processed", "food_sales_clean.csv"))
-artifact = joblib.load(os.path.join(os.path.dirname(__file__), "best_demand_model.pkl"))
+# Exact paths from root folder
+csv_path = "food_demand_project/data/processed/food_sales_clean.csv"
+model_path = "food_demand_project/models/best_demand_model.pkl"
+
+# Backup checks (folder structure ela unna find chestundi)
+if not os.path.exists(csv_path):
+    csv_path = "data/processed/food_sales_clean.csv"
+if not os.path.exists(model_path):
+    model_path = "models/best_demand_model.pkl"
+
+df = pd.read_csv(csv_path)
+artifact = joblib.load(model_path)
 model = artifact["model_pipeline"]
 
 RECIPES = {
