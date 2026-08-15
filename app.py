@@ -1,4 +1,4 @@
-
+import os
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -7,8 +7,8 @@ import plotly.express as px
 
 st.set_page_config(page_title="Food Intelligence AI", layout="wide")
 
-df = pd.read_csv("data/processed/food_sales_clean.csv")
-artifact = joblib.load("models/best_demand_model.pkl")
+df = pd.read_csv(os.path.join(os.path.dirname(__file__), "..", "data", "processed", "food_sales_clean.csv"))
+artifact = joblib.load(os.path.join(os.path.dirname(__file__), "best_demand_model.pkl"))
 model = artifact["model_pipeline"]
 
 RECIPES = {
