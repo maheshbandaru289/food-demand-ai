@@ -37,12 +37,14 @@ RECIPES = {
 }
 
 st.sidebar.title("Navigation")
-menu = st.sidebar.radio("Select Page", ["Executive Dashboard", "Live Prediction Demo", "Inventory Procurement", "Model Explainability"])
+# Create columns
+c1, c2, c3 = st.columns(3)
 
-if menu == "Executive Dashboard":
-    st.title("Executive Waste & Demand Dashboard")
-    c1, c2, c3, c4 = st.columns(4)
+# Display metrics
+if 'revenue' in df.columns:
     c1.metric("Total Revenue", f"₹{df['revenue'].sum():,.0f}")
+else:
+    c1.metric("Total Revenue", "₹0")
     c2.metric("Total Food Sold", f"{df['quantity_sold'].sum():,} units")
     c3.metric("Total Wasted", f"{df['quantity_wasted'].sum():,} units")
     c4.metric("Waste Rate", f"{(df['quantity_wasted'].sum()/df['quantity_prepared'].sum())*100:.2f}%")
