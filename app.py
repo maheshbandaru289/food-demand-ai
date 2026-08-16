@@ -17,10 +17,17 @@ if not os.path.exists(csv_path):
 if not os.path.exists(model_path):
     model_path = "models/best_demand_model.pkl"
 
-df = pd.read_csv(csv_path)
-artifact = joblib.load(model_path)
-model = artifact["model_pipeline"]
-
+# Safe Model Loading
+model = None
+try:
+    if os.path.exists(model_path):
+        artifact = joblib.load(model_path)
+        if isinstance(artifact, dict) and "model_pipeline" in artifact:
+            model = artifact["model_pipeline"]
+        else:
+            model = artifact
+except Exception as e:
+    st.warning(f"Model load notice: {e}")
 RECIPES = {
     "Chicken Biryani": {"Raw Rice": 0.25, "Chicken": 0.30, "Spices & Oil": 0.08},
     "Veg Biryani": {"Raw Rice": 0.25, "Paneer": 0.15, "Spices & Oil": 0.08},
