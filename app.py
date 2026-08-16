@@ -33,8 +33,9 @@ try:
             model = artifact["model_pipeline"]
         else:
             model = artifact
-except Exception as e:
-    st.warning(f"Model load notice: {e}")
+except Exception:
+    pass
+    
 
 # Recipes Dictionary
 RECIPES = {
